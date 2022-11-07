@@ -1,0 +1,56 @@
+$height: 50px;
+
+.button {
+    position: relative;
+    width: calc($height * 3.5);
+    height: $height;
+    background-color: rgb(179, 185, 171);
+    border-radius: calc($height / 2);
+    border: none;
+    padding-right: 3.5em;
+    color:rgb(101, 105, 96);
+    font-weight: 500;
+    z-index: 1;
+    transition: 500ms;
+    cursor: pointer;
+}
+
+.button:hover {
+    background-color: rgb(196, 202, 188);
+}
+
+.arrow {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    z-index: 3;
+    height: calc($height - 10px);
+    width: calc($height - 10px);
+    background-color: rgb(205, 212, 196);
+    border-radius: 50%;
+    overflow: hidden;
+
+}
+
+.arrow1, .arrow2 {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    top: 6px;
+    transform: translateX(0);
+    transition: 500ms;
+}
+
+.arrow1 {
+    right: 40px;
+}
+
+.arrow2 {
+    right: 5px;
+}
+
+.button:hover .arrow1,
+.button:hover .arrow2 {
+    transform: translateX(35px);
+}
+

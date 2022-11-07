@@ -1,0 +1,22 @@
+@import "../../styles/globals/variables.scss";
+
+.a {
+    cursor: pointer;
+    display: block;
+    position: relative;
+    font-size: 0.9rem;
+}
+
+.a::before {
+    content: "";
+    width: 0px;
+    height: 2px;
+    position: absolute;
+    bottom: -8px;
+    background-color: $clr-accent;
+    transition: 800ms cubic-bezier(0.01, 0.83, 0.58, 1)
+}
+
+.a:hover::before {
+    width: 100%;
+}

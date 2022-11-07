@@ -1,0 +1,16 @@
+@import "../../styles/globals/variables.scss";
+
+.logo {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: $clr-base;
+    transform: scale(1);
+    transition: 600ms ease-in-out;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.logo:hover {
+    // transform: translateX(20px) scale(1.1);
+    color: $clr-accent;
+}

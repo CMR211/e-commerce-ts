@@ -1,0 +1,31 @@
+@import "../globals/variables.scss";
+
+.container {
+    background-color: white;
+    height: 80px;
+}
+
+.inner {
+    height: 100%;
+    max-width: $max-width;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    div {
+        display: flex;
+        flex-direction: row;
+        gap: 1rem;
+    }
+}
+
+.first {
+    align-items: baseline;
+    margin-bottom: 0.5rem;
+    margin-right: auto;
+}
+
+.second {
+    align-items: center;
+    justify-content: center;
+}
