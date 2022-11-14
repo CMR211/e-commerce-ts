@@ -1,0 +1,50 @@
+[
+    {
+        "id": "001",
+        "name": "Monstera Deliciosa",
+        "category": "indoor",
+        "price": 49,
+        "old_price": 59,
+        "desc": "This iconic houseplant from the 70's has come back with a vengeance! The Monstera deliciosa (Swiss Cheese Plant) has leaves that grow to considerable size and are defined by large lobes that say, 'Here I am!'. This low-light-tolerant, easy-care houseplant can't help but make you feel a little more hip. This plant is toxic if ingested. Keep away from pets and small children. It may also cause skin irritation.",
+        "images": [
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Monstera-Deliciosa-Grow-Pot-Small_x1024.jpg",
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Detail-Monstera-Deliciosa-Extra-Large_x1024.jpg"
+        ]
+    },
+    {
+        "id": "002",
+        "name": "Alocasia Frydek",
+        "category": "indoor",
+        "price": 69,
+        "old_price": 79,
+        "desc": "This Elephant Ear is for the cuddly type as its velvety blanket-soft leaves make you want to surround your body with plush stuffed animals. Alocasia Frydek brings out your inner child's need to want to touch everything soft and textural, but be gentle, as this indoor plant is tender! Alocasias generally love higher humidity levels and bright indirect light to grow and prosper. It is vital to water the soil when it is almost dry and drain any excess water from the bottom of the cover pot or grow pot to prevent the soil from being water-logged. If you follow these basic care requirements, your little Frydek might grow up to be 3 feet tall! This plant is toxic if ingested and may cause skin irritation. Keep away from pets and children.",
+        "images": [
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Alocasia-Frydek-Grow-Pot-Large_x1024.jpg",
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Detail-Alocasia-Frydek-Large_x1024.jpg"
+        ]
+    },
+    {
+        "id": "003",
+        "name": "Hoya Australis",
+        "category": "indoor",
+        "price": 29.50,
+        "old_price": 30,
+        "desc": "These glossy, waxy leaves want to find their way around your room. This Wax Plant is a fast grower, and in the right conditions, it will start feeling right at home by grabbing hold of everything with its curious vines. These easy-care houseplants are great for light-filled rooms and do not require much water or attention. Occasionally, plants may move during shipment and arrive with some soil displaced. Please remove packaging carefully, replace displaced soil and water and drain your plant. We recommend refraining from re-potting your hoyas as their roots are fragile and can lead to root damage.",
+        "images": [
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Hoya-Australis-Grow-Pot-Small_5c006114-6e4b-41ae-abe5-968de82d54d3_x1024.jpg",
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Detail-Hoya-Austrails-Large_x1024.jpg"
+        ]
+    },
+    {
+        "id": "004",
+        "name": "Philodendron Micans",
+        "category": "indoor",
+        "price": 15.00,
+        "old_price": 22,
+        "desc": "You won't be able to take your eyes off the stunning velvety foliage of this vining indoor plant, not to mention the depth and range of glowing green hues it displays. Plus, its beauty belies the fact that this is an easy-care houseplant, believe it or not! Philodendron 'Micans' does best in bright indirect light so place it near a window, but be sure to keep it away from the harsh direct rays of the sun. This plant is toxic. Keep away from pets and small children.",
+        "images": [
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Philodendron-Micans-Grow-Pot-Small_x1024.jpg",
+            "https://cdn.shopify.com/s/files/1/0253/6701/9565/products/Detail-Philodendron-Micans-Extra-Large_x1024.jpg"
+        ]
+    }
+]
