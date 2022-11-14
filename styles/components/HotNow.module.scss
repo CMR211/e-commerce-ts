@@ -1,0 +1,16 @@
+@import "../globals/variables.scss";
+
+.section {
+    margin: auto;
+    margin-top: 3rem;
+    max-width: $max-width;
+    min-height: calc(100vh - 100px);
+    
+}
+
+.container {
+    padding-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 2rem;
+}
