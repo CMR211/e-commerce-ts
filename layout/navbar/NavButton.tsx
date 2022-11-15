@@ -1,7 +1,7 @@
 import React from "react"
 import Image from "next/image"
 
-import styles from "../../styles/components/NavButton.module.scss"
+import styles from "./NavButton.module.scss"
 
 type NavButtonProps = {
     icon: string

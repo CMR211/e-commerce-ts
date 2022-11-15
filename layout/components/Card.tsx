@@ -1,9 +1,9 @@
 import React from "react"
-import styles from "../styles/components/Card.module.scss"
+import styles from "./Card.module.scss"
 
-import plants from "../server/json/plants.json"
+import plants from "../../server/json/plants.json"
 
-import { getPlantPrices } from "../utils/prices"
+import { getPlantPrices } from "../../utils/prices"
 
 type CardProps = {
     id: string

@@ -1,6 +1,5 @@
 import React from "react"
-import { ArrowRight } from "../../icons/Icons"
-import styles from "../../styles/components/HomeButton.module.scss"
+import styles from "./HomeButton.module.scss"
 
 type ButtonProps = {
     text: string

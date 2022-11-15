@@ -1,8 +1,8 @@
 import React from "react"
-import styles from "../../styles/components/NavItem.module.scss"
+import styles from "./NavItem.module.scss"
 
 type NavItemProps = {
-    goto: string;
+    goto: string
 }
 
 export default function NavItem({ goto }: NavItemProps) {

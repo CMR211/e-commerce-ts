@@ -1,10 +1,9 @@
 import type { NextPage } from "next"
 import Head from "next/head"
-
-import HomeButton from "../components/Home/HomeButton"
-import Navbar from "../components/Navbar/Navbar"
-import HotNow from "../components/Home/HotNow"
-import styles from "../styles/pages/Home.module.scss"
+import HomeButton from "../layout/home/HomeButton"
+import Navbar from "../layout/navbar/Navbar"
+import HotNow from "../layout/home/HotNow"
+import styles from "./index.module.scss"
 
 export default function Home() {
     return (

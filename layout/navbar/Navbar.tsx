@@ -3,7 +3,7 @@ import Logo from "./Logo"
 import NavItem from "./NavItem"
 import NavButton from "./NavButton"
 
-import styles from "../../styles/components/Navbar.module.scss"
+import styles from "./Navbar.module.scss"
 
 export default function Navbar() {
     return (

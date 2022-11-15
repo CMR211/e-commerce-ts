@@ -1,6 +1,6 @@
 import React from "react"
-import styles from "../../styles/components/HotNow.module.scss"
-import Card from "../Card"
+import styles from "./HotNow.module.scss"
+import Card from "../components/Card"
 
 export default function HotNow() {
     return (
