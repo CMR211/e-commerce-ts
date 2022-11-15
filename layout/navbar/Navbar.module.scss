@@ -3,6 +3,7 @@
 .container {
     background-color: white;
     height: 80px;
+    padding: 0 2rem;
 }
 
 .inner {
@@ -20,6 +21,7 @@
 }
 
 .first {
+    display: flex;
     align-items: baseline;
     margin-bottom: 0.5rem;
     margin-right: auto;

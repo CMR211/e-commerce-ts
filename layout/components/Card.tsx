@@ -10,24 +10,25 @@ type CardProps = {
     showOldPrice?: boolean
 }
 
-type PlantType = {
-    id: string
-    name: string
-    category: string
-    price: number
-    old_price: number
-    desc: string
-    images: string[]
-}
+// type PlantType = {
+//     id: string
+//     name: string
+//     family: string
+//     price: number
+//     old_price: number
+//     desc: string
+//     images: string[]
+// }
 
 export default function Card({ id, showOldPrice }: CardProps) {
-    const plant: PlantType = plants.find((plant) => plant.id === id) ?? plants[0]
+    const plant = plants.find((plant) => plant.id === id) ?? plants[0]
     const prices = getPlantPrices(plant.price, plant.old_price)
 
     return (
         <div className={styles.card}>
-            <img className={styles.img} width={280} height={280} src={plant?.images[0]} alt={`${plant?.name} alt`} />
-
+            <div className={styles.image_container}>
+                <img className={styles.image} src={plant?.images[0]} alt={`${plant?.name} alt`} />
+            </div>
             <p className={styles.name}>{plant?.name}</p>
 
             <p className={styles.price}>
@@ -37,7 +38,7 @@ export default function Card({ id, showOldPrice }: CardProps) {
                 <span className={styles.price_suffix}>{prices.newPriceSuffix}</span>
             </p>
 
-            <p className={styles.category}>{plant?.category}</p>
+            <p className={styles.family}>{plant?.family}</p>
         </div>
     )
 }

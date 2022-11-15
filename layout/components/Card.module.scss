@@ -5,13 +5,24 @@
     display: block;
     width: 300px;
     height: 400px;
-    background-color: $clr-bg;
-    padding: 10px;
     border-radius: 10px;
 }
 
-.img {
-    border-radius: 5px;
+.family {
+    font-weight: 200;
+    font-size: 0.8em;
+}
+
+.image_container {
+    border-radius: 2px;
+    width: 100%;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.image {
+    border-radius: 2px;
+    width: 100%;
 }
 
 .name {
@@ -21,7 +32,7 @@
 .price {
     font-size: 2.5em;
     position: absolute;
-    bottom: 50px;
+    bottom: 40px;
     right: 15px;
 }
 
