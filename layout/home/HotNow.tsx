@@ -5,7 +5,7 @@ import Card from "../components/Card"
 export default function HotNow() {
     return (
         <section className={styles.section}>
-            <h2>Featured special offers</h2>
+            <h2 className={styles.title}>Featured special offers</h2>
             <div className={styles.bg}></div>
             <div className={styles.container}>
                 <Card id="001" showOldPrice={true} />

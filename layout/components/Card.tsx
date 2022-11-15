@@ -26,6 +26,7 @@ export default function Card({ id, showOldPrice }: CardProps) {
 
     return (
         <div className={styles.card}>
+            <button className={styles.view_product}>View Plant</button>
             <div className={styles.image_container}>
                 <img className={styles.image} src={plant?.images[0]} alt={`${plant?.name} alt`} />
             </div>
