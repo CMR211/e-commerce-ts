@@ -1,0 +1,18 @@
+@import "../styles/variables.scss";
+
+.container {
+    margin: auto;
+    margin-top: 3rem;
+    max-width: $max-width;
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+.categories {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 2rem;
+}
