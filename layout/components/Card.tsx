@@ -4,6 +4,7 @@ import styles from "./Card.module.scss"
 import plants from "../../server/json/plants.json"
 
 import { getPlantPrices } from "../../utils/prices"
+import Button from "./Button"
 
 type CardProps = {
     id: string
@@ -26,7 +27,7 @@ export default function Card({ id, showOldPrice }: CardProps) {
 
     return (
         <div className={styles.card}>
-            <button className={styles.view_product}>View Plant</button>
+            <Button text="View Product" />
             <div className={styles.image_container}>
                 <img className={styles.image} src={plant?.images[0]} alt={`${plant?.name} alt`} />
             </div>
