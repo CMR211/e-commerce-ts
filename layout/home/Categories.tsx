@@ -7,9 +7,9 @@ export default function Categories() {
         <div className={styles.container}>
             <h2 className={styles.title}>Browse categories</h2>
             <div className={styles.categories}>
-                <Category name="Araceae" plant_ids={["001", "002"]} />
-                <Category name="Apocynaceae" plant_ids={["003", "004"]} />
-                <Category name="Euphorbiaceae" plant_ids={["005", "006"]} />
+                <Category name="Araceae" />
+                <Category name="Apocynaceae" />
+                <Category name="Euphorbiaceae" />
             </div>
         </div>
     )
