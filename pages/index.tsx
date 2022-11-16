@@ -4,6 +4,8 @@ import HomeButton from "../layout/home/HomeButton"
 import Navbar from "../layout/navbar/Navbar"
 import HotNow from "../layout/home/HotNow"
 import styles from "./index.module.scss"
+import Category from "../layout/components/Category"
+import Categories from "../layout/home/Categories"
 
 export default function Home() {
     return (
@@ -35,6 +37,7 @@ export default function Home() {
                     </div>
                 </section>
                 <HotNow />
+                <Categories  />
             </main>
         </>
     )
