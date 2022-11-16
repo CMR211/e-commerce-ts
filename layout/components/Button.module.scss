@@ -1,0 +1,18 @@
+@import "../styles/_variables.scss";
+
+.button {
+    position: absolute;
+    background-color: $clr-bg;
+    border: none;
+    border-radius: 2px;
+    width: 90%;
+    height: 30px;
+    text-align: center;
+    font-family: inherit;
+    bottom: 120px;
+    left: 50%;
+    transform: translate(-50%, 10px);
+    opacity: 0;
+    pointer-events: none;
+    transition: 300ms ease-in-out;
+}
