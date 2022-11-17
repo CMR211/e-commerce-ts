@@ -1,9 +1,14 @@
-@import "../styles/variables.scss";
+@import "../styles/_variables.scss";
 
 .section {
-    margin: auto;
     margin-top: 3rem;
+    padding: 2rem 2rem;
+    background-color: $clr-bg;
+}
+
+.wrapper {
     max-width: $max-width;
+    margin: auto;
 }
 
 .container {
@@ -13,21 +18,5 @@
     gap: 2rem;
     background-color: $clr-bg;
     position: relative;
-    &::before, &::after {
-        content: "";
-        background-color: $clr-bg;
-        height: 100%;
-        width: 10rem;
-        position: absolute;
-    }
-    &::before {
-        right: -10rem;
-    }
-    &::after {
-        left: -10rem;
-    }
 }
 
-.title {
-    margin-bottom: 1rem;
-}
