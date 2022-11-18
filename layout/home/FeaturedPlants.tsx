@@ -1,8 +1,8 @@
 import React from "react"
-import styles from "./HotNow.module.scss"
+import styles from "./FeaturedPlants.module.scss"
 import Card from "../components/Card"
 
-export default function HotNow() {
+export default function FeaturedPlants() {
     return (
         <section className={styles.section}>
             <div className={styles.wrapper}>

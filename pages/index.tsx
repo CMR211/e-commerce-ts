@@ -2,10 +2,9 @@ import type { NextPage } from "next"
 import Head from "next/head"
 import HomeButton from "../layout/home/HomeButton"
 import Navbar from "../layout/navbar/Navbar"
-import HotNow from "../layout/home/HotNow"
 import styles from "./index.module.scss"
-import Category from "../layout/components/Category"
 import Categories from "../layout/home/Categories"
+import FeaturedPlants from "../layout/home/FeaturedPlants"
 
 export default function Home() {
     return (
@@ -36,7 +35,7 @@ export default function Home() {
                         <HomeButton text="Go shopping" />
                     </div>
                 </section>
-                <HotNow />
+                <FeaturedPlants />
                 <Categories  />
             </main>
         </>
