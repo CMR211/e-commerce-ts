@@ -1,0 +1,22 @@
+.section {
+    // background-color: red;
+    background-image: url(https://assets.website-files.com/62d2e266e20c184da5836dab/62d3360334f1829c8296ac90_Bg-torn.png);
+    
+}
+
+.container {
+    max-width: 80rem;
+    margin: auto;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.title {
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+    font-size: 2em;
+}

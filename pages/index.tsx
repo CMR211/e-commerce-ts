@@ -5,6 +5,7 @@ import Navbar from "../layout/navbar/Navbar"
 import styles from "./index.module.scss"
 import Categories from "../layout/home/Categories"
 import FeaturedPlants from "../layout/home/FeaturedPlants"
+import CustomerFeatures from "../layout/home/CustomerFeatures"
 
 export default function Home() {
     return (
@@ -36,7 +37,8 @@ export default function Home() {
                     </div>
                 </section>
                 <FeaturedPlants />
-                <Categories  />
+                <Categories />
+                <CustomerFeatures />
             </main>
         </>
     )

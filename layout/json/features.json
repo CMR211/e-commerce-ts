@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Shop Online",
+        "desc": "Save time, we send you your plant to your house.",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d6cc351037a1527138b3e8_Guy-2.png"
+    },
+    {
+        "title": "Plants Accesories",
+        "desc": "From pots to soil we got you covered.",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d459999c135700e8bb0b80_Plant.png"
+    },
+    {
+        "title": "Expert Advice",
+        "desc": "Have a question? We have answers reach us.",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d6ccfd69f1ba80a4838bac_Footer-2.png"
+    },
+    {
+        "title": "Customer Satisfaction",
+        "desc": "You are safe with our satisfaction guarantee.",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d335caa73d9085569303f3_Feature_tab_1.png"
+    },
+    {
+        "title": "Variety of Plants",
+        "desc": "We have more than 100 varieties of plants.",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d337cd683aff12db98238a_Feature_tab_2.png"
+    },
+    {
+        "title": "Customer Support",
+        "desc": "Feel free to reach to us 800-234-567",
+        "imageUrl": "https://assets.website-files.com/62d2e266e20c184da5836dab/62d337e9a73d90f2659318df_Feature_tab_3.png"
+    }
+]

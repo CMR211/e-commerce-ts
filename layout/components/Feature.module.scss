@@ -1,0 +1,27 @@
+@import "../styles/variables.scss";
+
+.container {
+    margin-bottom: 2rem;
+    position: relative;
+    background-color: $clr-bg;
+    padding: 1rem;
+    border-radius: 10px;
+}
+.bg {
+    position: absolute;
+    bottom: 0;
+    height: 150px;
+    width: 120px;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.content {
+    margin-left: 150px;
+}
+
+.title {
+    margin-bottom: 1rem;
+}
+
+
