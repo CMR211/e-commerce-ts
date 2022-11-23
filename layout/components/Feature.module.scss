@@ -6,6 +6,7 @@
     background-color: $clr-bg;
     padding: 1rem;
     border-radius: 10px;
+    font-weight: 400;
 }
 .bg {
     position: absolute;
@@ -22,6 +23,7 @@
 
 .title {
     margin-bottom: 1rem;
+    font-weight: inherit
 }
 
 
