@@ -1,14 +1,15 @@
 import React from "react"
 import styles from "./HomeButton.module.scss"
 
-type ButtonProps = {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     text: string
     action?: () => void
 }
 
-export default function HomeButton({ text, action }: ButtonProps) {
+export default function HomeButton(props: ButtonProps) {
+    const { text, action } = props
     return (
-        <button onClick={action} className={styles.button}>
+        <button onClick={action} className={styles.button} {...props}>
             {text}
             <div className={styles.arrow}>
                 <svg className={styles.arrow1} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">

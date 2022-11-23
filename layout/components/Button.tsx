@@ -1,10 +1,15 @@
-import React from "react"
+import React, { HTMLAttributes } from "react"
 import styles from "./Button.module.scss"
 
-type ButtonProps = {
+interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     text: string
 }
 
-export default function Button({ text }: ButtonProps) {
-    return <button className={styles.button}>{text}</button>
+export default function Button(props: ButtonProps) {
+    const { text } = props
+    return (
+        <button className={styles.button} {...props}>
+            {text}
+        </button>
+    )
 }
