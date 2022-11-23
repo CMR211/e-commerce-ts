@@ -1,7 +1,7 @@
+@import "../styles/_variables.scss";
+
 .section {
-    // background-color: red;
     background-image: url(https://assets.website-files.com/62d2e266e20c184da5836dab/62d3360334f1829c8296ac90_Bg-torn.png);
-    
 }
 
 .container {
@@ -18,5 +18,5 @@
 .title {
     margin-top: 4rem;
     margin-bottom: 4rem;
-    font-size: 2em;
+    font-size: $home-page-subtitle-size;
 }
