@@ -1,10 +1,9 @@
 const { randomBytes, pbkdf2Sync } = require("node:crypto")
 
 /**
- *
  * @param {string} password
  * @param {string?} salt - optional, if not defined new salt will be generated 128 bytes long in hex
- * @returns {string} - returns a string template: "{method:pbkdf2}{salt:${salt}}{hash:${hash}}"
+ * @returns {string} - returns a string containing hash method, salt and hash
  */
 function hash256(password, salt) {
     if (typeof salt === "undefined") salt = randomBytes(128).toString("hex")

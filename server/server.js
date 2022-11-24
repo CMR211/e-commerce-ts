@@ -26,9 +26,9 @@ app.post("/plant", async (req, res) => {
     res.end()
 })
 
-app.post("/createuser", async (req,res) => {
+app.post("/createuser", async (req, res) => {
     try {
-        const {email, password} = req.body
+        const { email, password } = req.body
         const addedUser = await database.createUser(email, password)
         res.send(200)
     } catch (error) {
@@ -38,7 +38,7 @@ app.post("/createuser", async (req,res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        const { email,  password } = req.body
+        const { email, password } = req.body
         if (password === "") res.status(400).send("Password cannot be empty!")
         if (email === "" || !emailRegExp.test(email)) res.status(400).send("You must enter a valid email!")
         const dbUserCredentials = await database.loadUserCredentials(email)
