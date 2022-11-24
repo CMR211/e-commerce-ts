@@ -26,22 +26,28 @@ app.post("/plant", async (req, res) => {
     res.end()
 })
 
+app.post("/createuser", async (req,res) => {
+    try {
+        const {email, password} = req.body
+        const addedUser = await database.createUser(email, password)
+        res.send(200)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+})
+
 app.post("/login", async (req, res) => {
     try {
-        const { inputEmail, inputPassword } = req.body
-        if (inputPassword === "") {
-            res.status(400).send("Password cannot be empty!")
+        const { email,  password } = req.body
+        if (password === "") res.status(400).send("Password cannot be empty!")
+        if (email === "" || !emailRegExp.test(email)) res.status(400).send("You must enter a valid email!")
+        const dbUserCredentials = await database.loadUserCredentials(email)
+        const loginUserHash = hash256(password, dbUserCredentials.salt)
+        if (dbUserCredentials.hash === loginUserHash) {
+            res.status(200).send("Password correct!")
+        } else {
+            res.status(403).send("Incorrect password!")
         }
-        if (inputEmail === "" || !emailRegExp.test(inputEmail)) {
-            res.status(400).send("You must enter a valid email!")
-        }
-        const hashedInputPassword = hash256(inputPassword)
-        const loginData = {
-            date: new Date().toISOString(),
-            email: inputEmail,
-            hash: hashedInputPassword,
-        }
-        res.json(loginData)
     } catch (error) {
         if (error.code === "ERR_INVALID_ARG_TYPE") res.status(500).send(error.code)
     }
