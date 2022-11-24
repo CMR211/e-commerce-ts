@@ -1,5 +1,6 @@
 const { MongoClient } = require("mongodb")
 require("dotenv").config()
+
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true })
 
 async function load(collectionName) {
@@ -10,7 +11,7 @@ async function load(collectionName) {
         client.close()
         return documents
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
@@ -22,7 +23,7 @@ async function create(collectionName, document) {
         client.close()
         return addedDocument
     } catch (error) {
-        console.log(error)
+        return error
     }
 }
 
