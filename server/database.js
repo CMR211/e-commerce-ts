@@ -4,13 +4,16 @@ require("dotenv").config()
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true })
 
-async function load(collectionName) {
+const DATABASE = "plants-e-commerce-ts"
+const COLLECTION_PLANTS = "plants"
+const COLLECTION_USERS = "users"
+
+async function loadPlants() {
     try {
         await client.connect()
-        const collection = client.db("plants-e-commerce-ts").collection(collectionName)
-        const documents = await collection.find({}).toArray()
+        const plantsFromDB = await client.db(DATABASE).collection(COLLECTION_PLANTS).find({}).toArray()
         client.close()
-        return documents
+        return plantsFromDB
     } catch (error) {
         return error
     }
@@ -24,13 +27,11 @@ async function load(collectionName) {
 async function loadUserCredentials(email) {
     try {
         await client.connect()
-        const collection = client.db("plants-e-commerce-ts").collection("users")
-        const document = await collection.findOne({email: email.toLowerCase()})
-        console.log(document)   
+        const userInfoFromDB = client.db(DATABASE).collection(COLLECTION_USERS).findOne({"email": email.toLowerCase()})
         client.close()
         const userCredentials = {
-            hash: document.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6,-1),
-            salt: document.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6,-1)
+            hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6,-1),
+            salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6,-1)
         }
         return userCredentials
     } catch (error) {
@@ -39,7 +40,7 @@ async function loadUserCredentials(email) {
 }
 
 async function createUser(name, surname, email, password) {
-    const userInfo = {
+    const newUserData = {
         name,
         surname,
         email,
@@ -47,8 +48,8 @@ async function createUser(name, surname, email, password) {
     }
     try {
         await client.connect()
-        const collection = client.db("plants-e-commerce-ts").collection("users")
-        const addedUser = await collection.insertOne(userInfo)
+        const usersFromDB = client.db(DATABASE).collection(COLLECTION_USERS)
+        const addedUser = await usersFromDB.insertOne(newUserData)
         client.close()
         return addedUser
     } catch (error) {
@@ -56,10 +57,21 @@ async function createUser(name, surname, email, password) {
     }
 }
 
-async function create(collectionName, document) {
+async function deleteUser(email) {
     try {
         await client.connect()
-        const collection = client.db("plants-e-commerce-ts").collection(collectionName)
+        const deletedUser = await client.db(DATABASE).collection(COLLECTION_USERS).deleteOne({"email": email})
+        client.close()
+        return deletedUser
+    } catch (error) {
+        return error
+    }
+}
+
+async function createPlant(document) {
+    try {
+        await client.connect()
+        const collection = client.db(DATABASE).collection(COLLECTION_PLANTS)
         const addedDocument = await collection.insertOne(document)
         client.close()
         return addedDocument
@@ -68,4 +80,4 @@ async function create(collectionName, document) {
     }
 }
 
-module.exports = { load, create, loadUserCredentials, createUser }
+module.exports = { loadPlants, createPlant, loadUserCredentials, createUser, deleteUser }

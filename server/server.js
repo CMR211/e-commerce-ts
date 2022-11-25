@@ -12,7 +12,7 @@ app.use(express.json())
 
 app.get("/plants", async (req, res) => {
     try {
-        const json = await database.load("plants")
+        const json = await database.loadPlants()
         res.json(json)
     } catch (error) {
         res.send(error)
@@ -21,18 +21,18 @@ app.get("/plants", async (req, res) => {
 
 app.post("/plant", async (req, res) => {
     const documentToAdd = req.body
-    const addedDocument = await database.create("plants", documentToAdd)
+    const addedDocument = await database.createPlant(documentToAdd)
     res.json(addedDocument)
     res.end()
 })
 
 app.post("/createuser", async (req,res) => {
     try {
-        const {email, password} = req.body
-        const addedUser = await database.createUser(email, password)
+        const {name, surname, email, password} = req.body
+        const addedUser = await database.createUser(name, surname, email, password)
         res.send(200)
     } catch (error) {
-        res.status(500).send(error)
+        res.sendStatus(500).send(error.code)
     }
 })
 
@@ -49,7 +49,17 @@ app.post("/login", async (req, res) => {
             res.status(403).send("Incorrect password!")
         }
     } catch (error) {
-        if (error.code === "ERR_INVALID_ARG_TYPE") res.status(500).send(error.code)
+        if (error.code === "ERR_INVALID_ARG_TYPE") res.sendStatus(500).send(error.code)
+    }
+})
+
+app.delete("/deleteuser", async (req,res) => {
+    try {
+        const {email} = req.body
+        const deletedUser = await database.deleteUser(email)
+        res.sendStatus(200)
+    } catch (error) {
+        res.sendStatus(400).send(error.code)
     }
 })
 
