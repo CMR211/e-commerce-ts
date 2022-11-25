@@ -20,15 +20,19 @@ app.get("/plants", async (req, res) => {
 })
 
 app.post("/plant", async (req, res) => {
-    const documentToAdd = req.body
-    const addedDocument = await database.createPlant(documentToAdd)
-    res.json(addedDocument)
-    res.end()
+    try {
+        const documentToAdd = req.body
+        const addedDocument = await database.createPlant(documentToAdd)
+        res.json(addedDocument)
+        res.end()
+    } catch (error) {
+        res.sendStatus(500).send(error)
+    }
 })
 
-app.post("/createuser", async (req,res) => {
+app.post("/createuser", async (req, res) => {
     try {
-        const {name, surname, email, password} = req.body
+        const { name, surname, email, password } = req.body
         const addedUser = await database.createUser(name, surname, email, password)
         res.send(200)
     } catch (error) {
@@ -38,7 +42,7 @@ app.post("/createuser", async (req,res) => {
 
 app.post("/login", async (req, res) => {
     try {
-        const { email,  password } = req.body
+        const { email, password } = req.body
         if (password === "") res.status(400).send("Password cannot be empty!")
         if (email === "" || !emailRegExp.test(email)) res.status(400).send("You must enter a valid email!")
         const dbUserCredentials = await database.loadUserCredentials(email)
@@ -53,9 +57,9 @@ app.post("/login", async (req, res) => {
     }
 })
 
-app.delete("/deleteuser", async (req,res) => {
+app.delete("/deleteuser", async (req, res) => {
     try {
-        const {email} = req.body
+        const { email } = req.body
         const deletedUser = await database.deleteUser(email)
         res.sendStatus(200)
     } catch (error) {
@@ -63,4 +67,4 @@ app.delete("/deleteuser", async (req,res) => {
     }
 })
 
-app.listen(PORT, () => console.log("server is running"))
+app.listen(PORT, () => console.log("#### Server is running ####"))
