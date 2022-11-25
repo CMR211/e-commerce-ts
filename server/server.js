@@ -1,7 +1,7 @@
 const express = require("express")
 require("dotenv").config()
 
-const { hash256 } = require("./utilities")
+const { hashPassword } = require("./utilities")
 const database = require("./database")
 const { emailRegExp } = require("./regexp")
 
@@ -42,7 +42,7 @@ app.post("/login", async (req, res) => {
         if (password === "") res.status(400).send("Password cannot be empty!")
         if (email === "" || !emailRegExp.test(email)) res.status(400).send("You must enter a valid email!")
         const dbUserCredentials = await database.loadUserCredentials(email)
-        const loginUserHash = hash256(password, dbUserCredentials.salt)
+        const loginUserHash = hashPassword(password, dbUserCredentials.salt)
         if (dbUserCredentials.hash === loginUserHash) {
             res.status(200).send("Password correct!")
         } else {

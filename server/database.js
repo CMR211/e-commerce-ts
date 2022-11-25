@@ -1,5 +1,5 @@
 const { MongoClient } = require("mongodb")
-const { hash256 } = require("./utilities")
+const { hashPassword } = require("./utilities")
 require("dotenv").config()
 
 const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true })
@@ -38,10 +38,12 @@ async function loadUserCredentials(email) {
     }
 }
 
-async function createUser(email, password) {
+async function createUser(name, surname, email, password) {
     const userInfo = {
-        email: email,
-        password: hash256(password)
+        name,
+        surname,
+        email,
+        password: hashPassword(password)
     }
     try {
         await client.connect()
