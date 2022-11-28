@@ -30,6 +30,28 @@ async function loadPlant(id) {
     }
 }
 
+async function loadDiscountedPlants() {
+    try {
+        await client.close()
+        const discountedPlants = client.db(DATABASE).collection(COLLECTION_PLANTS).find({"old_price": {$lt: "price"}}).toArray()
+        client.close()
+        const randomIndexes = []
+        while (randomIndexes.length < 5) {
+            const randomIndex = Math.floor(Math.random() * discountedPlants.length)
+            if (randomIndexes.includes(randomIndex)) continue
+            else randomIndexes.push(randomIndex) 
+        }
+        console.log("discounted plants", discountedPlants)
+        console.log("discounted plants length", discountedPlants.length)
+        console.log("random indexes", randomIndexes)
+        const randomDiscountedPlants = (await discountedPlants).filter((plant,index) => randomIndexes.includes(index))
+        console.log("random discounted plants", randomDiscountedPlants)
+        return randomDiscountedPlants
+    } catch (error) {
+        return error
+    }
+}
+
 /**
  *
  * @param {string} email
@@ -91,4 +113,4 @@ async function createPlant(document) {
     }
 }
 
-module.exports = { loadPlants, loadPlant, createPlant, loadUserCredentials, createUser, deleteUser }
+module.exports = { loadPlants, loadPlant, loadDiscountedPlants, createPlant, loadUserCredentials, createUser, deleteUser }

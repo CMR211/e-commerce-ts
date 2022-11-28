@@ -15,6 +15,15 @@ app.use(function (req, res, next) {
     next()
 })
 
+app.get("/plants/discounted", async (req,res) => {
+    try {
+        const json = await database.loadDiscountedPlants()
+        res.json(json)
+    } catch (error) {
+        res.sendStatus(500).send(error)
+    }
+})
+
 app.get("/plants", async (req, res) => {
     try {
         const json = await database.loadPlants()
