@@ -9,10 +9,24 @@ const PORT = process.env.PORT || 3000
 
 const app = express()
 app.use(express.json())
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+    next()
+})
 
 app.get("/plants", async (req, res) => {
     try {
         const json = await database.loadPlants()
+        res.json(json)
+    } catch (error) {
+        res.send(error)
+    }
+})
+
+app.get("/plant/:id", async (req, res) => {
+    try {
+        const json = await database.loadPlant(id)
         res.json(json)
     } catch (error) {
         res.send(error)

@@ -19,19 +19,30 @@ async function loadPlants() {
     }
 }
 
+async function loadPlant(id) {
+    try {
+        await client.connect()
+        const plantFromDB = await client.db(DATABASE).collection(COLLECTION_PLANTS).findOne({ _id: id })
+        client.close()
+        return plantFromDB
+    } catch (error) {
+        return error
+    }
+}
+
 /**
- * 
- * @param {string} email 
+ *
+ * @param {string} email
  * @returns {string}
  */
 async function loadUserCredentials(email) {
     try {
         await client.connect()
-        const userInfoFromDB = client.db(DATABASE).collection(COLLECTION_USERS).findOne({"email": email.toLowerCase()})
+        const userInfoFromDB = client.db(DATABASE).collection(COLLECTION_USERS).findOne({ email: email.toLowerCase() })
         client.close()
         const userCredentials = {
-            hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6,-1),
-            salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6,-1)
+            hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6, -1),
+            salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6, -1),
         }
         return userCredentials
     } catch (error) {
@@ -44,7 +55,7 @@ async function createUser(name, surname, email, password) {
         name,
         surname,
         email,
-        password: hashPassword(password)
+        password: hashPassword(password),
     }
     try {
         await client.connect()
@@ -60,7 +71,7 @@ async function createUser(name, surname, email, password) {
 async function deleteUser(email) {
     try {
         await client.connect()
-        const deletedUser = await client.db(DATABASE).collection(COLLECTION_USERS).deleteOne({"email": email})
+        const deletedUser = await client.db(DATABASE).collection(COLLECTION_USERS).deleteOne({ email: email })
         client.close()
         return deletedUser
     } catch (error) {
@@ -80,4 +91,4 @@ async function createPlant(document) {
     }
 }
 
-module.exports = { loadPlants, createPlant, loadUserCredentials, createUser, deleteUser }
+module.exports = { loadPlants, loadPlant, createPlant, loadUserCredentials, createUser, deleteUser }
