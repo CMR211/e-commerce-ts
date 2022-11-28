@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import React from "react"
 import styles from "./Card.module.scss"
 
@@ -10,16 +11,6 @@ type CardProps = {
     id: string
     showOldPrice?: boolean
 }
-
-// type PlantType = {
-//     id: string
-//     name: string
-//     family: string
-//     price: number
-//     old_price: number
-//     desc: string
-//     images: string[]
-// }
 
 export default function Card({ id, showOldPrice }: CardProps) {
     const plant = plants.find((plant) => plant.id === id) ?? plants[0]
