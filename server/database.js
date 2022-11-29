@@ -30,22 +30,31 @@ async function loadPlant(id) {
     }
 }
 
+/**
+ * Queries the db to find plants at discounted price (price < old_price).
+ * Returns an array of 4 or less plants randomly picked from all discounted plants
+ */
 async function loadDiscountedPlants() {
     try {
-        await client.close()
-        const discountedPlants = client.db(DATABASE).collection(COLLECTION_PLANTS).find({"old_price": {$lt: "price"}}).toArray()
+        await client.connect()
+        const discountedPlants = await client
+            .db(DATABASE)
+            .collection(COLLECTION_PLANTS)
+            .find({
+                $expr: {
+                    $lt: ["$price", "$old_price"],
+                },
+            })
+            .toArray()
         client.close()
         const randomIndexes = []
-        while (randomIndexes.length < 5) {
+        while (true) {
+            if (randomIndexes.length >= 4 || randomIndexes.length === discountedPlants.length) break
             const randomIndex = Math.floor(Math.random() * discountedPlants.length)
             if (randomIndexes.includes(randomIndex)) continue
-            else randomIndexes.push(randomIndex) 
+            else randomIndexes.push(randomIndex)
         }
-        console.log("discounted plants", discountedPlants)
-        console.log("discounted plants length", discountedPlants.length)
-        console.log("random indexes", randomIndexes)
-        const randomDiscountedPlants = (await discountedPlants).filter((plant,index) => randomIndexes.includes(index))
-        console.log("random discounted plants", randomDiscountedPlants)
+        const randomDiscountedPlants = discountedPlants.filter((plant, index) => randomIndexes.includes(index))
         return randomDiscountedPlants
     } catch (error) {
         return error

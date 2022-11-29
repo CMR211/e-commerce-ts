@@ -5,7 +5,7 @@ const { hashPassword } = require("./utilities")
 const database = require("./database")
 const { emailRegExp } = require("./regexp")
 
-const PORT = process.env.PORT || 3000
+const PORT = process.env.PORT || 3001
 
 const app = express()
 app.use(express.json())
@@ -15,7 +15,12 @@ app.use(function (req, res, next) {
     next()
 })
 
-app.get("/plants/discounted", async (req,res) => {
+app.use(function (req,res,next) {
+    console.log(`A new request of ${req.path} from IP: ${req.ip}`)
+    next()
+})
+
+app.get("/discounted", async (req,res) => {
     try {
         const json = await database.loadDiscountedPlants()
         res.json(json)
@@ -90,4 +95,4 @@ app.delete("/deleteuser", async (req, res) => {
     }
 })
 
-app.listen(PORT, () => console.log("#### Server is running ####"))
+app.listen(PORT, () => console.log(`#### Server is running on port ${PORT} ####`))
