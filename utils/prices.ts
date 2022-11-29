@@ -1,4 +1,4 @@
-export function getPlantPrices(newPrice: number, oldPrice: number) {
+export function getPlantPrices(newPrice: number = 0, oldPrice: number = 0) {
     const newPriceFormatted = newPrice.toLocaleString("en-US", { style: "currency", currency: "USD" })
     const oldPriceFormatted = oldPrice.toLocaleString("en-US", { style: "currency", currency: "USD" })
     return {
