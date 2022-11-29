@@ -18,3 +18,9 @@ export function usePlant(plantID: string) {
     const { data, error } = useSWR(DEV_PREFIX + "/plant/" + plantID, axiosFetch)
     return { data, error }
 }
+
+export function useDiscountedPlants() {
+    const {data, error} = useSWR(DEV_PREFIX + "/discounted", axiosFetch)
+    console.log(data)
+    return {data,error}
+}
