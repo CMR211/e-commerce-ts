@@ -1,16 +1,18 @@
 import React from "react"
 import styles from "./FeaturedPlants.module.scss"
 import Card from "../components/Card"
-import { useDiscountedPlants } from "../../utils/useApiPlant"
+import { fetchDiscountedPlants } from "../../utils/useApiPlant"
 import { Plant } from "../../interfaces/plant"
+import { useQuery } from "@tanstack/react-query"
 
 export default function FeaturedPlants() {
-    const { data, error }: { data: Plant[]; error: string } = useDiscountedPlants()
+    const query = useQuery(["discountedPlants"], fetchDiscountedPlants)
 
-    if (error) return <p>Failed to get discounted plants</p>
-    if (!data) return <p>Loading...</p>
+    if (query.isLoading) return <p>Loading...</p>
+    if (query.isError) return <p>Error</p>
 
-    const discountedPlantsIds = data.map((plant) => plant.id)
+    const plants: Plant[] = query.data
+    const discountedPlantsIds = plants.map((plant) => plant._id)
 
     return (
         <section className={styles.section}>
