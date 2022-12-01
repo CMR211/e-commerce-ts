@@ -1,11 +1,11 @@
-const { randomBytes, pbkdf2Sync } = require("node:crypto")
+import { randomBytes, pbkdf2Sync } from "node:crypto"
 
 /**
  * @param {string} password
  * @param {string?} salt - optional, if not defined new salt will be generated 128 bytes long in hex
  * @returns {string} - returns a string containing hash method, salt and hash
  */
-function hashPassword(password, salt) {
+export function hashPassword(password: string, salt?: string): string {
     const NUMBER_OF_HASING_ITERATIONS = 100
     const SALT_LENGTH = 128
     const HASHING_METHOD = "sha256"
@@ -18,5 +18,3 @@ function hashPassword(password, salt) {
 
     return output
 }
-
-module.exports = { hashPassword }

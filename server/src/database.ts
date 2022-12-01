@@ -1,33 +1,39 @@
-import { Document, MongoClient, OptionalId } from "mongodb"
-// import { Plant } from "../interfaces/plant"
-import { hashPassword } from "./utilities"
-require("dotenv").config()
+import { MongoClient, ObjectId } from "mongodb"
+import * as dotenv from "dotenv"
+dotenv.config({ path: "../.env" })
 
-//@ts-ignore
-const client = new MongoClient(process.env.MONGO_URI, { useNewUrlParser: true })
+import { hashPassword } from "./utilities"
+import { Plant, UserCredentials } from "./interfaces"
+
+const mongoURI: string = process.env.MONGO_URI!
+const client: MongoClient = new MongoClient(mongoURI)
 
 const DATABASE = "plants-e-commerce-ts"
 const COLLECTION_PLANTS = "plants"
 const COLLECTION_USERS = "users"
 
-async function loadPlants() {
+async function loadPlants(): Promise<Plant[]> {
     try {
         await client.connect()
-        const plantsFromDB = await client.db(DATABASE).collection(COLLECTION_PLANTS).find({}).toArray()
+        const plantsFromDB = (await client.db(DATABASE).collection(COLLECTION_PLANTS).find({}).toArray()) as Plant[]
         client.close()
         return plantsFromDB
-    } catch (error) {
+    } catch (error: any) {
         return error
     }
 }
 
-async function loadPlant(id: string) {
+async function loadPlant(id: string): Promise<Plant> {
+    console.log(id)
     try {
         await client.connect()
-        const plantFromDB = await client.db(DATABASE).collection(COLLECTION_PLANTS).findOne({ _id: id })
+        const plantFromDB = (await client
+            .db(DATABASE)
+            .collection(COLLECTION_PLANTS)
+            .findOne({ _id: new ObjectId(id) })) as Plant
         client.close()
         return plantFromDB
-    } catch (error) {
+    } catch (error: any) {
         return error
     }
 }
@@ -36,10 +42,10 @@ async function loadPlant(id: string) {
  * Queries the db to find plants at discounted price (price < old_price).
  * Returns an array of 4 or less plants randomly picked from all discounted plants
  */
-async function loadDiscountedPlants() {
+async function loadDiscountedPlants(): Promise<Plant[]> {
     try {
         await client.connect()
-        const discountedPlants = await client
+        const discountedPlants = (await client
             .db(DATABASE)
             .collection(COLLECTION_PLANTS)
             .find({
@@ -47,7 +53,7 @@ async function loadDiscountedPlants() {
                     $lt: ["$price", "$old_price"],
                 },
             })
-            .toArray()
+            .toArray()) as Plant[]
         client.close()
         const randomIndexes: number[] = []
         while (true) {
@@ -58,12 +64,12 @@ async function loadDiscountedPlants() {
         }
         const randomDiscountedPlants = discountedPlants.filter((plant, index) => randomIndexes.includes(index))
         return randomDiscountedPlants
-    } catch (error) {
+    } catch (error: any) {
         return error
     }
 }
 
-async function loadUserCredentials(email: string) {
+async function loadUserCredentials(email: string): Promise<UserCredentials> {
     await client.connect()
     const userInfoFromDB = await client.db(DATABASE).collection(COLLECTION_USERS).findOne({ email: email.toLowerCase() })
     client.close()
@@ -104,7 +110,7 @@ async function deleteUser(email: string) {
     }
 }
 
-async function createPlant(document: OptionalId<Document>) {
+async function createPlant(document: Plant) {
     try {
         await client.connect()
         const collection = client.db(DATABASE).collection(COLLECTION_PLANTS)

@@ -2,7 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express"
 import detenv from "dotenv"
 detenv.config()
 
-import {hashPassword} from "./utilities"
+import { hashPassword } from "./utilities"
 import database from "./database"
 import { emailRegExp } from "./regexp"
 
@@ -39,8 +39,9 @@ app.get("/plants", async (req: Request, res: Response) => {
     }
 })
 
-app.get("/plant/:id", async (req: Request<{ id: string }>, res: Response) => {
-    const id = req.query.id 
+app.get("/plant/:id", async (req: Request, res: Response) => {
+    const id = req?.params?.id
+    console.log(id)
     try {
         const json = await database.loadPlant(id)
         res.json(json)
