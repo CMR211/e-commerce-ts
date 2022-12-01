@@ -14,3 +14,11 @@ export interface UserCredentials {
     hash: string
     salt: string
 }
+
+export interface User {
+    _id: ObjectId
+    name: string
+    surname: string
+    email: string
+    password: string
+}

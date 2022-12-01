@@ -26,7 +26,7 @@ app.get("/discounted", async (req: Request, res: Response) => {
         const json = await database.loadDiscountedPlants()
         res.json(json)
     } catch (error) {
-        res.sendStatus(500).send(error)
+        res.status(500).send(error)
     }
 })
 
@@ -57,44 +57,59 @@ app.post("/plant", async (req: Request, res: Response) => {
         res.json(addedDocument)
         res.end()
     } catch (error) {
-        res.sendStatus(500).send(error)
+        res.status(500).send(error)
     }
 })
 
 app.post("/createuser", async (req: Request, res: Response) => {
     try {
         const { name, surname, email, password } = req.body
-        const addedUser = await database.createUser(name, surname, email, password)
-        res.sendStatus(200)
+        const result = await database.createUser(name, surname, email, password)
+        if (result === "OK") res.status(200).send("User added.")
     } catch (error: any) {
-        res.sendStatus(500).send(error.code)
+        res.status(500).send(error.message)
     }
 })
 
+// TODO: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
 app.post("/login", async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
-        if (password === "") res.status(400).send("Password cannot be empty!")
-        if (email === "" || !emailRegExp.test(email)) res.status(400).send("You must enter a valid email!")
-        const dbUserCredentials = await database.loadUserCredentials(email)
-        const loginUserHash = hashPassword(password, dbUserCredentials.salt)
-        if (dbUserCredentials.hash === loginUserHash) {
-            res.status(200).send("Password correct!")
-        } else {
-            res.status(403).send("Incorrect password!")
-        }
+        if (password === "") throw new Error("ERR_EMPTY_PASSWORD")
+        if (email === "" || !emailRegExp.test(email)) throw new Error("ERR_INVALID_EMAIL")
+
+        const userInDB = await database.loadUserCredentials(email)
+        if (!userInDB) throw new Error("ERR_USER_NOT_FOUND")
+
+        const match = userInDB.password.match(/\{salt:[a-z0-9]+?\}/)
+        if (!match) throw new Error("ERR_COULDNT_FIND_PASSWORD")
+
+        const salt = match[0].slice(6, -1)
+        const loginUserHash = hashPassword(password, salt)
+        if (!(userInDB.password === loginUserHash)) throw new Error("ERR_INCORRECT_PASSWORD")
+
+        res.status(200).send("Succesfully logged in.")
     } catch (error: any) {
-        if (error.code === "ERR_INVALID_ARG_TYPE") res.sendStatus(500).send(error.code)
+        if (error.message === "ERR_EMPTY_PASSWORD") res.status(400).send("Password can not be empty!")
+        if (error.message === "ERR_INVALID_ARG_TYPE") res.status(400).send(error.message)
+        if (error.message === "ERR_INVALID_EMAIL") res.status(400).send("You must enter a valid email!")
+        if (error.message === "ERR_USER_NOT_FOUND") res.status(403).send("User nor found!")
+        if (error.message === "ERR_INCORRECT_PASSWORD") res.status(400).send("Incorrect password!")
+        if (error.message === "ERR_COULDNT_FIND_PASSWORD") res.status(500).send("Password cannot be retrieved")
+        else res.status(500).send(error.message)
     }
 })
 
 app.delete("/deleteuser", async (req: Request, res: Response) => {
     try {
         const { email } = req.body
-        const deletedUser = await database.deleteUser(email)
-        res.sendStatus(200)
+        const status = await database.deleteUser(email)
+        if (!status.acknowledged) throw new Error("ERR_DB_NOT_RESPONDING")
+        if (status.deletedCount < 1) throw new Error("ERR_USER_NOT_FOUND")
+        else res.status(200).send("User deleted")
     } catch (error: any) {
-        res.sendStatus(400).send(error.code)
+        if (error.message === "ERR_DB_NOT_RESPONDING") res.status(400).send("Database is not responding")
+        if (error.message === "ERR_USER_NOT_FOUND") res.status(403).send("User to be deleted not found")
     }
 })
 

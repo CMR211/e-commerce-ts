@@ -3,7 +3,7 @@ import * as dotenv from "dotenv"
 dotenv.config({ path: "../.env" })
 
 import { hashPassword } from "./utilities"
-import { Plant, UserCredentials } from "./interfaces"
+import { Plant, User, UserCredentials } from "./interfaces"
 
 const mongoURI: string = process.env.MONGO_URI!
 const client: MongoClient = new MongoClient(mongoURI)
@@ -69,18 +69,15 @@ async function loadDiscountedPlants(): Promise<Plant[]> {
     }
 }
 
-async function loadUserCredentials(email: string): Promise<UserCredentials> {
+// Err handling ok
+async function loadUserCredentials(email: string): Promise<User> {
     await client.connect()
-    const userInfoFromDB = await client.db(DATABASE).collection(COLLECTION_USERS).findOne({ email: email.toLowerCase() })
+    const user = (await client.db(DATABASE).collection<User>(COLLECTION_USERS).findOne({ email: email.toLowerCase() })) as User
     client.close()
-    if (!userInfoFromDB) throw new Error("No matching user")
-    const userCredentials = {
-        hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6, -1),
-        salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6, -1),
-    }
-    return userCredentials
+    return user
 }
 
+// Err handling ok
 async function createUser(name: string, surname: string, email: string, password: string) {
     const newUserData = {
         name,
@@ -93,33 +90,26 @@ async function createUser(name: string, surname: string, email: string, password
         const usersFromDB = client.db(DATABASE).collection(COLLECTION_USERS)
         const addedUser = await usersFromDB.insertOne(newUserData)
         client.close()
-        return addedUser
+        return "OK"
     } catch (error) {
         return error
     }
 }
 
+// Err handling ok
 async function deleteUser(email: string) {
-    try {
-        await client.connect()
-        const deletedUser = await client.db(DATABASE).collection(COLLECTION_USERS).deleteOne({ email: email })
-        client.close()
-        return deletedUser
-    } catch (error) {
-        return error
-    }
+    await client.connect()
+    const status = await client.db(DATABASE).collection(COLLECTION_USERS).deleteOne({ email: email })
+    client.close()
+    return status
 }
 
 async function createPlant(document: Plant) {
-    try {
-        await client.connect()
-        const collection = client.db(DATABASE).collection(COLLECTION_PLANTS)
-        const addedDocument = await collection.insertOne(document)
-        client.close()
-        return addedDocument
-    } catch (error) {
-        return error
-    }
+    await client.connect()
+    const collection = client.db(DATABASE).collection(COLLECTION_PLANTS)
+    const addedDocument = await collection.insertOne(document)
+    client.close()
+    return addedDocument
 }
 
 const database = { loadPlants, loadPlant, loadDiscountedPlants, createPlant, loadUserCredentials, createUser, deleteUser }
