@@ -1,6 +1,6 @@
 import { Document, MongoClient, OptionalId } from "mongodb"
-import { Plant } from "../interfaces/plant"
-const { hashPassword } = require("./utilities")
+// import { Plant } from "../interfaces/plant"
+import { hashPassword } from "./utilities"
 require("dotenv").config()
 
 //@ts-ignore
@@ -64,19 +64,15 @@ async function loadDiscountedPlants() {
 }
 
 async function loadUserCredentials(email: string) {
-    try {
-        await client.connect()
-        const userInfoFromDB = await client.db(DATABASE).collection(COLLECTION_USERS).findOne({ email: email.toLowerCase() })
-        client.close()
-        if (!userInfoFromDB) throw new Error("No matching user")
-        const userCredentials = {
-            hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6, -1),
-            salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6, -1),
-        }
-        return userCredentials
-    } catch (error) {
-        return error
+    await client.connect()
+    const userInfoFromDB = await client.db(DATABASE).collection(COLLECTION_USERS).findOne({ email: email.toLowerCase() })
+    client.close()
+    if (!userInfoFromDB) throw new Error("No matching user")
+    const userCredentials = {
+        hash: userInfoFromDB.password.match(/\{hash:[a-z0-9]+?\}/)[0].slice(6, -1),
+        salt: userInfoFromDB.password.match(/\{salt:[a-z0-9]+?\}/)[0].slice(6, -1),
     }
+    return userCredentials
 }
 
 async function createUser(name: string, surname: string, email: string, password: string) {
@@ -120,4 +116,5 @@ async function createPlant(document: OptionalId<Document>) {
     }
 }
 
-module.exports = { loadPlants, loadPlant, loadDiscountedPlants, createPlant, loadUserCredentials, createUser, deleteUser }
+const database = { loadPlants, loadPlant, loadDiscountedPlants, createPlant, loadUserCredentials, createUser, deleteUser }
+export default database

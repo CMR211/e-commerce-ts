@@ -1,11 +1,10 @@
-import { Application, NextFunction, Request, Response } from "express"
+import express, { Application, NextFunction, Request, Response } from "express"
+import detenv from "dotenv"
+detenv.config()
 
-const express = require("express")
-require("dotenv").config()
-
-const { hashPassword } = require("./utilities")
-const database = require("./database")
-const { emailRegExp } = require("./regexp")
+import {hashPassword} from "./utilities"
+import database from "./database"
+import { emailRegExp } from "./regexp"
 
 const PORT = process.env.PORT || 3001
 
@@ -41,7 +40,7 @@ app.get("/plants", async (req: Request, res: Response) => {
 })
 
 app.get("/plant/:id", async (req: Request<{ id: string }>, res: Response) => {
-    const id = req.query.id
+    const id = req.query.id 
     try {
         const json = await database.loadPlant(id)
         res.json(json)
