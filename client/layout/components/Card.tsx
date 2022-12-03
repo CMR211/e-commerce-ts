@@ -9,6 +9,7 @@ import { fetchPlant } from "../../utils/useApiPlant"
 import { useQuery } from "@tanstack/react-query"
 
 import { Plant } from "../../interfaces/plant"
+import QueryMessage from "./QueryMessage"
 
 type CardProps = {
     id: string
@@ -18,17 +19,18 @@ type CardProps = {
 export default function Card({ id, showOldPrice }: CardProps) {
     const query = useQuery(["plant" + id], () => fetchPlant(id))
 
-    if (query.isLoading) return <p>Loading...</p>
-    if (query.isError) return <p>Error</p>
-    console.log(query)
-    const plant: Plant = query.data
+    if (query.status === "loading") return <QueryMessage icon="loading" message="Loading..." />
+    if (query.status === "error") return <QueryMessage icon="error" message="Error loading data" />
+
+    const plant: Plant = query.data.data
     const prices = getPlantPrices(plant.price, plant.old_price)
+    console.log(plant)
 
     return (
         <div className={styles.card}>
             <Button text="View Product" />
             <div className={styles.image_container}>
-                <img className={styles.image} src={plant?.imgs[0]} alt={`${plant?.name} alt`} />
+                <img className={styles.image} src={plant.images[0]} alt={`${plant?.name} alt`} />
             </div>
             <p className={styles.name}>{plant?.name}</p>
 

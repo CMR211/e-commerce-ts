@@ -1,4 +1,5 @@
 export interface Plant {
+    // _id: ObjectId
     _id: string
     name: string
     old_price?: number
