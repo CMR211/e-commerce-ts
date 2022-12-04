@@ -2,7 +2,7 @@ import express, { Application, NextFunction, Request, Response } from "express"
 import detenv from "dotenv"
 detenv.config()
 
-import { hashPassword } from "./utilities"
+import { hashPassword, isEmailValid } from "./utilities"
 import database from "./database"
 import { emailRegExp } from "./regexp"
 
@@ -41,7 +41,6 @@ app.get("/plants", async (req: Request, res: Response) => {
 
 app.get("/plant/:id", async (req: Request, res: Response) => {
     const id = req?.params?.id
-    console.log(id)
     try {
         const json = await database.loadPlant(id)
         res.json(json)
@@ -62,8 +61,12 @@ app.post("/plant", async (req: Request, res: Response) => {
 })
 
 app.post("/createuser", async (req: Request, res: Response) => {
+    const { name, surname, email, password } = req.body
+    if (!isEmailValid(email)) {
+        res.status(400).send("Invalid user data")
+        return
+    }
     try {
-        const { name, surname, email, password } = req.body
         const result = await database.createUser(name, surname, email, password)
         if (result === "OK") res.status(200).send("User added.")
     } catch (error: any) {
@@ -71,8 +74,9 @@ app.post("/createuser", async (req: Request, res: Response) => {
     }
 })
 
-// TODO: Error [ERR_HTTP_HEADERS_SENT]: Cannot set headers after they are sent to the client
+
 app.post("/login", async (req: Request, res: Response) => {
+    let status = 200, message ="Succesfully logged in."
     try {
         const { email, password } = req.body
         if (password === "") throw new Error("ERR_EMPTY_PASSWORD")
@@ -87,16 +91,19 @@ app.post("/login", async (req: Request, res: Response) => {
         const salt = match[0].slice(6, -1)
         const loginUserHash = hashPassword(password, salt)
         if (!(userInDB.password === loginUserHash)) throw new Error("ERR_INCORRECT_PASSWORD")
-
-        res.status(200).send("Succesfully logged in.")
     } catch (error: any) {
-        if (error.message === "ERR_EMPTY_PASSWORD") res.status(400).send("Password can not be empty!")
-        if (error.message === "ERR_INVALID_ARG_TYPE") res.status(400).send(error.message)
-        if (error.message === "ERR_INVALID_EMAIL") res.status(400).send("You must enter a valid email!")
-        if (error.message === "ERR_USER_NOT_FOUND") res.status(403).send("User nor found!")
-        if (error.message === "ERR_INCORRECT_PASSWORD") res.status(400).send("Incorrect password!")
-        if (error.message === "ERR_COULDNT_FIND_PASSWORD") res.status(500).send("Password cannot be retrieved")
-        else res.status(500).send(error.message)
+        if (error.message === "ERR_EMPTY_PASSWORD") setResponse(400, "Password can not be empty!")
+        if (error.code === "ERR_INVALID_ARG_TYPE") setResponse(400, "Incorrect password")
+        if (error.message === "ERR_INVALID_EMAIL") setResponse(400, "You must enter a valid email!")
+        if (error.message === "ERR_USER_NOT_FOUND") setResponse(403, "User nor found!")
+        if (error.message === "ERR_INCORRECT_PASSWORD") setResponse(400, "Incorrect password!")
+        if (error.message === "ERR_COULDNT_FIND_PASSWORD") setResponse(500, "Password cannot be retrieved")
+    } finally {
+        res.status(status).send(message)
+    }
+    function setResponse(setStatus:number,setMessage:string) {
+        status = setStatus
+        message = setMessage
     }
 })
 
