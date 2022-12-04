@@ -1,6 +1,7 @@
 import { MongoClient, ObjectId } from "mongodb"
+import path from "path"
 import * as dotenv from "dotenv"
-dotenv.config({ path: "../.env" })
+dotenv.config({ path: path.resolve(__dirname, "../.env") })
 
 import { hashPassword } from "./utilities"
 import { Plant, User, UserCredentials } from "./interfaces"
