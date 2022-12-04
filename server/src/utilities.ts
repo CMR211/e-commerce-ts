@@ -18,3 +18,8 @@ export function hashPassword(password: string, salt?: string): string {
 
     return output
 }
+
+export function isEmailValid(email:string) {
+    const emailRegex = /^[^@\s]+?@[^@\s]+?\.[^@\s]+?$/
+    return emailRegex.test(email)
+}
