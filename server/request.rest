@@ -1,0 +1,32 @@
+@host = http://localhost:3001
+GET {{host}}/plants
+###
+
+# @prompt plantID i.e. 63762ab9c0bc3e20323e48f3
+GET  {{host}}/plant/{{plantID}}
+###
+POST {{host}}/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "test@pass.com",
+    "password": "pass"
+}
+###
+POST {{host}}/createuser
+Content-Type: application/json
+
+{
+    "name": "Zibi",
+    "surname": "Top",
+    "email": "this.is.correct.email@yeah.itis",
+    "password": "at least password is okay"
+}
+###
+POST {{host}}/login
+Content-Type: application/json
+
+{
+    "email": "this.is.correct.email@yeah.itis",
+    "password": 2
+}
