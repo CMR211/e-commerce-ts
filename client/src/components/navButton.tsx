@@ -3,15 +3,15 @@ import React from "react"
 import styles from "../styles/navButton.module.scss"
 
 type NavButtonProps = {
-    icon: string
     action?: () => void
     alt?: string
+    children?: any
 }
 
-export default function NavButton({ icon, action, alt }: NavButtonProps) {
+export default function NavButton({ action, alt, children }: NavButtonProps) {
     return (
         <div className={styles.button}>
-            <img src={`/icons/${icon}.png`} alt={alt} width={32} height={32} />
+            {children}
         </div>
     )
 }

@@ -1,13 +1,15 @@
-import axios from "axios"
+import { Plant } from "../types/types"
 
 const DEV_PREFIX = "http://localhost:3001"
 
-export async function fetchPlant(plantID: string) {
-    const response = await axios.get(DEV_PREFIX + "/plant/" + plantID)
-    return response
+export async function fetchPlant(plantID: string): Promise<Plant> {
+    const response = await fetch(DEV_PREFIX + "/plant/" + plantID)
+    const json = await response.json()
+    return json
 }
 
-export async function fetchDiscountedPlants() {
-    const response = await axios.get(DEV_PREFIX + "/discounted")
-    return response
+export async function fetchDiscountedPlants(): Promise<Plant[]> {
+    const response = await fetch(DEV_PREFIX + "/discounted")
+    const json = await response.json()
+    return json
 }
