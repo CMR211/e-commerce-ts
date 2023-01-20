@@ -1,12 +1,13 @@
 import features from "../json/features.json"
 import styles from "../styles/homeCustomerFeatures.module.scss"
 import Feature from "./homeFeature"
+import { Text } from "./text"
 
 export default function CustomerFeatures() {
     return (
         <div className={styles.section}>
             <div className={styles.container}>
-                <h2 className={styles.title}>What we offer?</h2>
+                <Text variant="section" >What we offer?</Text>
                 <div className={styles.features}>
                     {features.map((feature) => (
                         <Feature

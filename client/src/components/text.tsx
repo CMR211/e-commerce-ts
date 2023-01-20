@@ -7,6 +7,7 @@ type TextProps = {
 
 const SectionTitle = styled.h2`
     font-size: 1.8rem;
+    margin-bottom: ${2.5}rem;
 `
 
 const NormalText = styled.p`
