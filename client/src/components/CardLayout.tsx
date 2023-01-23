@@ -6,7 +6,7 @@ import { Plant } from "../types/types"
 
 import { getPlantPrices } from "../utils/prices"
 
-type CardProps = Omit<Plant, "_id" | "desc"> & { onClick?: () => void }
+type CardProps = Omit<Plant, "_id" | "desc"> & { onClick?: () => any }
 
 export function CardLayout(props: CardProps) {
     const { family, images, name, price, old_price, ...rest } = props
@@ -15,7 +15,7 @@ export function CardLayout(props: CardProps) {
     if (name === "blank") return <Loader />
 
     return (
-        <div className={styles.card} onClick={props.onClick}>
+        <div className={styles.card} onClick={props.onClick} >
             <Button text="View Product" />
             <div className={styles.image_container}>
                 <img className={styles.image} src={images[0]} alt={`${name} alt`} />

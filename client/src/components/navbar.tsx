@@ -1,16 +1,19 @@
 import { Logo } from "./Logo"
-import { NavItem } from "./navItem"
-import { NavButton } from "./navButton"
+import { NavItem } from "./NavItem"
+import { NavButton } from "./NavButton"
 import { Cart, Search } from "./Icons"
 
 import styles from "../styles/navbar.module.scss"
+import { Link } from "react-router-dom"
 
 export function Navbar() {
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
                 <div className={styles.first}>
-                    <Logo />
+                    <Link to="/">
+                        <Logo />
+                    </Link>
                     <NavItem goto="shop" />
                     <NavItem goto="Featured" />
                     <NavItem goto="About Us" />

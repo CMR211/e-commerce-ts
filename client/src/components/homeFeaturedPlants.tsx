@@ -2,12 +2,14 @@ import styles from "../styles/homeFeaturedPlants.module.scss"
 
 import { fetchDiscountedPlants } from "../utils/useApiPlant"
 import { useQuery } from "@tanstack/react-query"
+import { handleClick } from "../utils/redirect"
 
-import {CardLayout} from "./CardLayout"
+import { CardLayout } from "./CardLayout"
 import { Plant } from "../types/types"
 import { Text } from "./Text"
+import { Link } from "react-router-dom"
 
-export  function HomeFeaturedPlants() {
+export function HomeFeaturedPlants() {
     const { data, status, error } = useQuery(["discountedPlants"], fetchDiscountedPlants)
 
     // if (status === "loading") return <QueryMessage icon="loading" message="Loading..." />
@@ -29,14 +31,15 @@ export  function HomeFeaturedPlants() {
                 <div className={styles.container}>
                     {status === "success"
                         ? data.map((plant: Plant) => (
-                              <CardLayout
+                            <Link to={`/products/${plant._id}`} >
+                              <CardLayout 
                                   key={plant._id}
                                   family={plant.family}
                                   images={plant.images}
                                   name={plant.name}
                                   price={plant.price}
                                   old_price={plant.old_price}
-                              />
+                              /></Link>
                           ))
                         : new Array(4).fill(
                               <CardLayout

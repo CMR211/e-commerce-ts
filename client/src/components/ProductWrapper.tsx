@@ -1,17 +1,14 @@
 import { useQuery } from "@tanstack/react-query"
 import { fetchPlant } from "../utils/useApiPlant"
 
-import {Product} from "./Product"
-import {QueryMessage} from "./QueryMessage"
+import { Product } from "./Product"
+import { QueryMessage } from "./QueryMessage"
+import { useParams } from "react-router-dom"
 
-type ProductWrapperProps = {
-    id: string
-}
+export function ProductWrapper() {
+    const { id } = useParams()
 
-export  function ProductWrapper(props: ProductWrapperProps) {
-    const { id } = props
-
-    const { status, data, error } = useQuery(["plant" + id], () => fetchPlant(id))
+    const { status, data, error } = useQuery(["plant" + id], () => fetchPlant(id!))
 
     if (status === "loading") return <QueryMessage icon="loading" message="Loading..." />
     if (status === "error") return <QueryMessage icon="error" message="Error loading data" />
