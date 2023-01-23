@@ -6,7 +6,7 @@ interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
     action?: () => void
 }
 
-export default function HomeButton(props: ButtonProps) {
+export  function HomeButton(props: ButtonProps) {
     const { text, action } = props
     return (
         <button onClick={action} className={styles.button} {...props}>

@@ -6,7 +6,7 @@ type FeatureType = {
     imageUrl: string
 }
 
-export default function Feature({ title, description, imageUrl }: FeatureType) {
+export  function HomeFeature({ title, description, imageUrl }: FeatureType) {
     return (
         <div className={styles.container}>
             <div className={styles.bg} style={{ backgroundImage: `url(${imageUrl}` }}></div>

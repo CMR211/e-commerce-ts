@@ -1,11 +1,11 @@
-import Logo from "./logo"
-import NavItem from "./navItem"
-import NavButton from "./navButton"
-import {Cart, Search} from "./icons"
+import { Logo } from "./Logo"
+import { NavItem } from "./navItem"
+import { NavButton } from "./navButton"
+import { Cart, Search } from "./Icons"
 
 import styles from "../styles/navbar.module.scss"
 
-export default function Navbar() {
+export function Navbar() {
     return (
         <div className={styles.container}>
             <div className={styles.inner}>
@@ -19,8 +19,12 @@ export default function Navbar() {
                     <NavItem goto="Contact" />
                 </div>
                 <div className={styles.second}>
-                    <NavButton ><Cart /></NavButton>
-                    <NavButton ><Search /></NavButton>
+                    <NavButton>
+                        <Cart />
+                    </NavButton>
+                    <NavButton>
+                        <Search />
+                    </NavButton>
                 </div>
             </div>
         </div>

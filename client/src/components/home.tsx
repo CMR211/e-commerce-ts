@@ -1,11 +1,11 @@
 import styles from "../styles/home.module.scss"
 
-import HomeButton from "./homeButton"
-import Categories from "./homeCategories"
-import FeaturedPlants from "./homeFeaturedPlants"
-import CustomerFeatures from "./homeCustomerFeatures"
+import {HomeButton} from "./HomeButton"
+import {HomeCategories} from "./HomeCategories"
+import {HomeFeaturedPlants} from "./HomeFeaturedPlants"
+import {HomeCustomerFeatures} from "./HomeCustomerFeatures"
 
-export default function Home() {
+export  function Home() {
     return (
         <main className={styles.main}>
             <section className={styles.section}>
@@ -26,9 +26,9 @@ export default function Home() {
                     <HomeButton text="Go shopping" />
                 </div>
             </section>
-            <FeaturedPlants />
-            <Categories />
-            <CustomerFeatures />
+            <HomeFeaturedPlants />
+            <HomeCategories />
+            <HomeCustomerFeatures />
         </main>
     )
 }

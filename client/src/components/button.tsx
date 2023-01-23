@@ -5,7 +5,7 @@ interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
     text: string
 }
 
-export default function Button(props: ButtonProps) {
+export  function Button(props: ButtonProps) {
     const { text } = props
     return (
         <button className={styles.button} {...props}>
