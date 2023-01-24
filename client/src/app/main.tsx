@@ -7,12 +7,17 @@ import { ProductWrapper } from "../components/ProductWrapper"
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <><Navbar /></>,
-        
-    },
-    {
-        path: "/products/:id",
-        element: <ProductWrapper />,
+        element: <Navbar />,
+        children: [
+            {
+                path: "home",
+                element: <Home />,
+            },
+            {
+                path: "products/:id",
+                element: <ProductWrapper />,
+            },
+        ],
     },
 ])
 
@@ -20,7 +25,6 @@ export default function Main() {
     return (
         <>
             <RouterProvider router={router} />
-                
         </>
     )
 }
