@@ -9,8 +9,10 @@ import { Plant } from "../types/types"
 import { Text } from "./Text"
 import { Link } from "react-router-dom"
 
+const DAY = 1000 * 3600 * 24
+
 export function HomeFeaturedPlants() {
-    const { data, status, error } = useQuery(["discountedPlants"], fetchDiscountedPlants)
+    const { data, status, error } = useQuery(["discountedPlants"], fetchDiscountedPlants, { staleTime: DAY })
 
     // if (status === "loading") return <QueryMessage icon="loading" message="Loading..." />
     // if (status === "error") return <QueryMessage icon="error" message="Error loading data" />
@@ -31,15 +33,16 @@ export function HomeFeaturedPlants() {
                 <div className={styles.container}>
                     {status === "success"
                         ? data.map((plant: Plant) => (
-                            <Link to={`/products/${plant._id}`} >
-                              <CardLayout 
-                                  key={plant._id}
-                                  family={plant.family}
-                                  images={plant.images}
-                                  name={plant.name}
-                                  price={plant.price}
-                                  old_price={plant.old_price}
-                              /></Link>
+                              <Link to={`/products/${plant._id}`}>
+                                  <CardLayout
+                                      key={plant._id}
+                                      family={plant.family}
+                                      images={plant.images}
+                                      name={plant.name}
+                                      price={plant.price}
+                                      old_price={plant.old_price}
+                                  />
+                              </Link>
                           ))
                         : new Array(4).fill(
                               <CardLayout

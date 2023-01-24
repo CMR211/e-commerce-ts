@@ -10,7 +10,7 @@ type CardWithFetchProps = {
 }
 
 export function CardWrapper({ id }: CardWithFetchProps) {
-    const { status, data, error } = useQuery(["plant" + id], () => fetchPlant(id))
+    const { status, data, error } = useQuery(["plant" + id], () => fetchPlant(id), {staleTime: Infinity})
 
     if (status === "loading") return <QueryMessage icon="loading" message="Loading..." />
     if (status === "error") return <QueryMessage icon="error" message="Error loading data" />
